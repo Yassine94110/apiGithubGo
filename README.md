@@ -1,6 +1,10 @@
 # GoLangCC
 
-Remplir le .env
+creer le .env avec ses variable
+
+GITHUB_USERNAME=
+
+GITHUB_TOKEN=
 
 Dockerisation:
 
