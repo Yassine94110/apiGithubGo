@@ -61,9 +61,9 @@ func getAndPrintRecentRepositories(username, token string) error {
 	var wg sync.WaitGroup
 
 	for _, repo := range repos {
-		wg.Add(1)                  // Ajouter un compteur pour chaque dépôt
-		go func(repo Repository) { // Lancer une goroutine pour traiter le dépôt
-			defer wg.Done() // Décrémenter le compteur à la fin
+		wg.Add(1)
+		go func(repo Repository) {
+			defer wg.Done()
 
 			cloneDir := fmt.Sprintf("clones/%s", repo.Name)
 			cloneURL := fmt.Sprintf("https://github.com/%s/%s.git", username, repo.Name)
@@ -92,7 +92,7 @@ func getAndPrintRecentRepositories(username, token string) error {
 		}(repo)
 	}
 
-	wg.Wait() // Attendre que toutes les goroutines soient terminées
+	wg.Wait()
 
 	for i, repo := range repos {
 		fmt.Printf("%d. Nom du référentiel: %s\n", i+1, repo.Name)
