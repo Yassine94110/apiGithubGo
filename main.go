@@ -24,7 +24,13 @@ type Repository struct {
 
 func main() {
 
-	err := godotenv.Load()
+	err := cleanDirectories("csv", "archives", "clones")
+	if err != nil {
+		fmt.Println("Erreur lors du nettoyage des répertoires:", err)
+		return
+	}
+
+	err = godotenv.Load()
 	if err != nil {
 		fmt.Println("Erreur lors du chargement du fichier .env:", err)
 		return
@@ -198,4 +204,17 @@ func createZipArchive(sourceDir, targetFile string) error {
 		return nil
 	})
 	return err
+}
+func cleanDirectories(dirs ...string) error {
+	for _, dir := range dirs {
+		err := os.RemoveAll(dir)
+		if err != nil {
+			return err
+		}
+		err = os.Mkdir(dir, 0755)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
